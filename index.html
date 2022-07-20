@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-color: lightblue;
+            box-sizing: border-box;
+            height: 100vh;
+        }
+
+        .container {
+            width: 300px;
+            height: auto;
+            padding: 0;
+            margin: auto;
+            background-color: black;
+            margin-top: 30px;
+            text-align: center;
+            border: 3px solid Navy;
+            border-radius: 5px;
+        }
+
+        input[type="text"] {
+            height: 40px;
+            width: 280px;
+            padding: 15px 10px;
+            color: navy;
+            font-weight: 800;
+            text-align: right;
+            border: none;
+            background: white;
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"]::placeholder {
+            color: navy;
+            font-weight: 800;
+        }
+
+        .keys .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .keys .row button {
+            width: 52px;
+            height: 45px;
+            margin: 5px;
+            font-size: 25px;
+            font-weight: 400;
+            border: none;
+            border: 1px solid navy;
+            border-radius: 5px;
+            color: navy;
+            background: #ecf0f1;
+            cursor: pointer;
+        }
+
+        .keys .row button:focus {
+            outline: none;
+        }
+
+        .keys .row button:active {
+            transform: translate(0.1rem);
+            border: none;
+        }
+
+        .keys .row .btn_Navy {
+            background: green;
+            color: #ecf0f1;
+        }
+
+        .keys .row .btn_Navy1 {
+            background: green;
+            color: #ecf0f1;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="font-family: times new roman; text-align: center; margin-top: 120px;">Calculator</h1>
+    <div class="container">
+        <input type="text" class="Visible" placeholder="0" readonly="readonly">
+        <div class="keys">
+            <div class="row">
+                <button class="btn_Navy" style="width: 77%; background-color:red;" id="clear" value=" "> C</button>
+            </div>
+            <div class="row">
+                <button class="num" value="7"> 7</button>
+                <button class="num" value="8"> 8</button>
+                <button class="num" value="9"> 9</button>
+                <button class="operation btn_Navy" value="/"> /</button>
+            </div>
+            <div class="row">
+                <button class="num" value="4"> 4</button>
+                <button class="num" value="5"> 5</button>
+                <button class="num" value="6"> 6</button>
+                <button class="btn_Navy operation " value="*"> *</button>
+            </div>
+            <div class="row">
+                <button class="num" value="1"> 1</button>
+                <button class="num" value="2"> 2</button>
+                <button class="num" value="3"> 3</button>
+                <button class="operation btn_Navy" value="-"> -</button>
+            </div>
+            <div class="row">
+                <button class="num" value="."> .</button>
+                <button class="num" value="0"> 0</button>
+                <button class="btn_Navy1" value="="> = </button>
+                <button class="operation btn_Navy" value="+">+</button>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+    </div>
+    <script>
+        const result = document.querySelector('.Visible')
+        const clear = document.querySelector('#clear')
+        const compute = document.querySelector('.btn_Navy1')
+        const buttons = document.querySelectorAll('.num, .operation')
+        let input = [];
+        Array.from(buttons).forEach((button) => {
+            button.addEventListener('click', () => {
+                const operator = ['+', '-', '/', '*']
+                if (input[input.length - 1] == '=' && !operator.includes(button.value)) {
+                    result.value = button.value;
+                } else {
+                    result.value += button.value;
+                }
+                input.push(button.value)
+            })
+        })
+        compute.addEventListener('click', () => {
+            input.push('=');
+            if (result.value.length == 0) {
+                return false
+            } else {
+                result.value = eval(result.value)
+            }
+        })
+        clear.addEventListener('click', () => {
+            result.value = ''
+        })
+    </script>
+</body>
+
+</html>
